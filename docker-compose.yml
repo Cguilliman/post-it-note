@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  # cache:
+  #   image: redis:alpine
+  #   container_name: note_redis
+  #   expose:
+  #     - 6379
+
+  db:
+    image: postgres:10.1-alpine
+    container_name: note_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=note_db
+    expose:
+      - 5432
+    # volumes:
+      # - postgres_data:/var/lib/postgresql/data/
+
+  backend:
+    build: .
+    container_name: note_backend
+    
