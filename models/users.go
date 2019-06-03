@@ -3,17 +3,19 @@ package models
 import (
 	"errors"
 
+	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/Cguilliman/post-it-note/common"
 )
 
 type UserModel struct {
-	ID           uint    `gorm:"primary_key"`
-	Username     string  `gorm:"column:username"`
-	Email        string  `gorm:"column:email;unique_index"`
-	Avatar       *string `gorm:"column:avatar"`
-	PasswordHash string  `gorm:"column:password;not null"`
+	gorm.Model
+	Username     string      `gorm:"column:username"`
+	Email        string      `gorm:"column:email;unique_index"`
+	Avatar       *string     `gorm:"column:avatar"`
+	PasswordHash string      `gorm:"column:password;not null"`
+	Notes        []NoteModel `gorm:"ForeignKey:OwnerID"`
 }
 
 // set password
