@@ -1,7 +1,6 @@
 package controllers
 
 import (
-    "fmt"
     "net/http"
     "github.com/gin-gonic/gin"
     
@@ -21,4 +20,8 @@ func UserNotesList(c *gin.Context) {
     c.JSON(http.StatusOK, gin.H{
         "nodes": serializer.Response(),
     })
+}
+
+func NoteCreate(c *gin.Context) {
+    
 }

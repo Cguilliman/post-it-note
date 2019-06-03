@@ -21,7 +21,7 @@ func UserRegisteration(c *gin.Context) {
 		return
 	}
 
-	if err := models.SaveOne(&userModelValidator.userModel); err != nil {
+	if err := models.UserSaveOne(&userModelValidator.userModel); err != nil {
 		c.JSON(
 			http.StatusUnprocessableEntity,
 			common.NewError("database", err),

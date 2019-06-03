@@ -20,3 +20,9 @@ func GetNotes(condition interface{}) ([]NoteModel, error) {
     err := db.Where(condition).Find(&models).Error
     return models, err
 }
+
+func NodeSaveOne(data interface{}) error {
+    db := common.GetDB()
+    err := db.Save(data).Error
+    return err
+}

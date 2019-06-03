@@ -45,7 +45,7 @@ func FindOneUser(condition interface{}) (UserModel, error) {
 }
 
 // save one model object by data
-func SaveOne(data interface{}) error {
+func UserSaveOne(data interface{}) error {
 	db := common.GetDB()
 	err := db.Save(data).Error
 	return err
