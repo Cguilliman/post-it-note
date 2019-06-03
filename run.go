@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/Cguilliman/post-it-note/controllers"
+	"github.com/Cguilliman/post-it-note/models"
 	"github.com/gin-gonic/gin"
-    "github.com/Cguilliman/post-it-note/controllers"
-    "github.com/Cguilliman/post-it-note/models"
 )
 
 func main() {
