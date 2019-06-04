@@ -28,3 +28,12 @@ func (self *NoteCreationValidator) Bind(c *gin.Context) error {
     self.noteModel.OwnerID = currentUser.ID
     return nil
 }
+
+func NewNoteCreationValidatorFillWith(exists models.NoteModel) NoteCreationValidator {
+    validator := NewNoteCreationValidator()
+    validator.noteModel.Note = exists.Note
+    validator.noteModel.CreatedAt = exists.CreatedAt
+    validator.noteModel.DeletedAt = exists.DeletedAt
+    validator.noteModel.OwnerID = exists.OwnerID
+    return validator
+}

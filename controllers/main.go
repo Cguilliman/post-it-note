@@ -14,5 +14,5 @@ func InitRoutings(engine *gin.Engine) {
 	v1.GET("/retrieve", UserRetrieve)
     v1.PUT("/update", UserUpdate)
     v1.GET("/notes", UserNotesList)
-	v1.POST("/note/create", NoteCreate)
+	v1.PUT("/note/:pk/update", NoteUpdate)
 }

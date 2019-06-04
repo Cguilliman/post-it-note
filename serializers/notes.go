@@ -11,7 +11,8 @@ type NoteSerializer struct {
 }
 
 type NoteResponse struct {
-    Note      string 
+    ID        uint   `json:"id"`
+    Note      string `json:"note"`
     CreatedAt string `json:"createdAt"`
     UpdatedAt string `json:"updatedAt"`
     // Owner     UserResponse 
@@ -19,6 +20,7 @@ type NoteResponse struct {
 
 func (self *NoteSerializer) Response() NoteResponse {
     response := NoteResponse{
+        ID: self.ID,
         Note: self.Note,
         CreatedAt: self.CreatedAt.UTC().Format("2006-01-02T15:04:05.999Z"),
         UpdatedAt: self.UpdatedAt.UTC().Format("2006-01-02T15:04:05.999Z"),
