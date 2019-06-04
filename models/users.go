@@ -15,7 +15,7 @@ type UserModel struct {
 	Email        string      `gorm:"column:email;unique_index"`
 	Avatar       *string     `gorm:"column:avatar"`
 	PasswordHash string      `gorm:"column:password;not null"`
-	Notes        []NoteModel `gorm:"ForeignKey:OwnerID"`
+	Notes        []NoteModel `gorm:"foreignkey:OwnerID"`
 }
 
 // set password
