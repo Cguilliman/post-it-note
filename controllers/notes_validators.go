@@ -7,9 +7,24 @@ import (
     "github.com/Cguilliman/post-it-note/models"
 )
 
-type NewNoteValidator struct {
+type NoteCreationValidator struct {
     Note struct {
-        Note string `json:"note"`
+        Value string `form:"value" json:"value" binding:"exists,max=500"`
     } `json:"note"`
     noteModel models.NoteModel `json:"-"`
+}
+
+func NewNoteCreationValidator() NoteCreationValidator {
+    return NoteCreationValidator{}
+}
+
+func (self *NoteCreationValidator) Bind(c *gin.Context) error {
+    currentUser := c.MustGet("my_user_model").(models.UserModel)
+
+    if err := common.Bind(c, self); err != nil {
+        return err
+    }
+    self.noteModel.Note = self.Note.Value
+    self.noteModel.OwnerID = currentUser.ID
+    return nil
 }
