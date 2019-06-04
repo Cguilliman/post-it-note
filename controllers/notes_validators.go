@@ -37,3 +37,8 @@ func NewNoteCreationValidatorFillWith(exists models.NoteModel) NoteCreationValid
     validator.noteModel.OwnerID = exists.OwnerID
     return validator
 }
+
+func IsNoteOwner(c *gin.Context, note models.NoteModel) bool {
+    user := c.MustGet("my_user_model").(models.UserModel)
+    return note.OwnerID == user.ID
+}

@@ -13,6 +13,7 @@ func InitRoutings(engine *gin.Engine) {
 	v1.Use(AuthMiddleware(false))
 	v1.GET("/retrieve", UserRetrieve)
     v1.PUT("/update", UserUpdate)
-    v1.GET("/notes", UserNotesList)
+    v1.GET("/notes", NotesList)
 	v1.PUT("/note/:pk/update", NoteUpdate)
+	v1.DELETE("/note/:pk/delete", NoteDelete)
 }

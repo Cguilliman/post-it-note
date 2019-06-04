@@ -38,8 +38,14 @@ func GetNote(condition interface{}) (NoteModel, error) {
     return model, err
 }
 
-func NodeSaveOne(data interface{}) error {
+func NoteSaveOne(data interface{}) error {
     db := common.GetDB()
     err := db.Save(data).Error
+    return err
+}
+
+func NoteDelete(condition interface{}) error {
+    db := common.GetDB()
+    err := db.Where(condition).Delete(NoteModel{}).Error
     return err
 }
