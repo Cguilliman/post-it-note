@@ -31,7 +31,7 @@ func TestDataGeneration(db *gorm.DB) {
 	fmt.Println(user1.Notes)
 	fmt.Println("--------------------------")
 	db.Save(&NoteModel{
-		Note: "value",
+		Note:    "value",
 		OwnerID: user1.ID,
 	})
 	var note NoteModel
@@ -41,7 +41,6 @@ func TestDataGeneration(db *gorm.DB) {
 	db.Model(&user1).Related(&notes, "Notes")
 	fmt.Println(notes)
 	fmt.Println("--------------------------")
-
 
 	// var notes []NoteModel
 	// db.Where(&NoteModel{

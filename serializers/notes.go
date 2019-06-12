@@ -34,9 +34,9 @@ func (self *NoteSerializer) Response() NoteResponse {
 	var attachments []AttachmentResponse
 	for _, attachment := range objs {
 		attachments = append(
-			attachments, 
+			attachments,
 			AttachmentResponse{
-				ID:        attachment.ID, 
+				ID:        attachment.ID,
 				Image:     *attachment.Image,
 				CreatedAt: attachment.CreatedAt.UTC().Format("2006-01-02T15:04:05.999Z"),
 				UpdatedAt: attachment.UpdatedAt.UTC().Format("2006-01-02T15:04:05.999Z"),

@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/Cguilliman/post-it-note/controllers/users"
-	"github.com/Cguilliman/post-it-note/controllers/notes"
 	"github.com/Cguilliman/post-it-note/controllers/middlewares"
+	"github.com/Cguilliman/post-it-note/controllers/notes"
+	"github.com/Cguilliman/post-it-note/controllers/users"
+	"github.com/gin-gonic/gin"
 )
 
 func InitRoutings(engine *gin.Engine) {
