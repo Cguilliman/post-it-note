@@ -10,7 +10,7 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&UserModel{})
 	db.AutoMigrate(&NoteModel{})
 	db.AutoMigrate(&AttachmentModel{})
-	TestDataGeneration(db)
+	// TestDataGeneration(db)
 }
 
 func InitDatabase() *gorm.DB {
@@ -45,7 +45,7 @@ func TestDataGeneration(db *gorm.DB) {
 
 	// var notes []NoteModel
 	// db.Where(&NoteModel{
-	// 	OwnerID: user1.ID,
+	// 	   OwnerID: user1.ID,
 	// }).Find(&notes)
 	// fmt.Println(notes)
 }

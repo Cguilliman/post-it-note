@@ -81,5 +81,6 @@ func NewError(key string, err error) CommonError {
 // origin function is here: https://github.com/gin-gonic/gin/blob/master/context.go
 func Bind(c *gin.Context, obj interface{}) error {
 	b := binding.Default(c.Request.Method, c.ContentType())
+	fmt.Println(b)
 	return c.ShouldBindWith(obj, b)
 }

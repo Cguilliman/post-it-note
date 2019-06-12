@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"fmt"
+	"reflect"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -62,10 +63,20 @@ func NotesList(c *gin.Context) {
 func NoteCreate(c *gin.Context) {
 	validator := NewNoteCreationValidator()
 	if err := validator.Bind(c); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+		// TODO: re-factor error displaying
+		c.JSON(http.StatusUnprocessableEntity, err)
 		return
 	}
 	if err := models.NoteSaveOne(&validator.noteModel); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+		return
+	}
+	if err := validator.CreateFiles(c); err != nil {
+		// TODO: re-factor error displaying
+		c.JSON(http.StatusUnprocessableEntity, err)
+		return
+	}
+	if err := validator.noteModel.AddAttachments(validator.attachmentsFiles); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
 		return
 	}
@@ -105,4 +116,20 @@ func NoteDelete(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"note": "Deleted success"})
+}
+
+func TestImageUploading(c *gin.Context) {
+	form, err := c.MultipartForm()
+	fmt.Println(form, err)
+	files, ok := form.File["image"]
+	fmt.Println(files, ok)
+
+	for _, file := range files {
+		fmt.Println(reflect.TypeOf(file))
+		err := c.SaveUploadedFile(file, "saved/"+file.Filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{"status": "OK"})
 }

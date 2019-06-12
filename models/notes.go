@@ -2,7 +2,7 @@ package models
 
 import (
 	"time"
-	// "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 	"github.com/Cguilliman/post-it-note/common"
 )
 
@@ -12,17 +12,18 @@ type NoteModel struct {
     ID          uint              `gorm:"primary_key"`
     DeletedAt   *time.Time        `sql:"index"`
     Note        string            `gorm:"column:note"`
-    // Attachments []AttachmentModel `gorm:"ForeignKey:NoteID"`
-    
+
+
+    Attachments []AttachmentModel `gorm:"foreignkey:NoteID"`    
     OwnerID       uint         //`gorm:"foreignkey:UserRefer,association_foreignkey:Notes"`
-    // OwnerID     uint
-	// TODO add permission
+	// TODO: add permission
 }
 
 type AttachmentModel struct {
+    gorm.Model
+    // ID     uint    `gorm:"primary_key"`
 	Image  *string `gorm:"image"`
 	NoteID uint
-	Note   NoteModel
 }
 
 func (self NoteModel) Update(data interface{}) (NoteModel, error) {
@@ -31,17 +32,27 @@ func (self NoteModel) Update(data interface{}) (NoteModel, error) {
 	return self, err
 }
 
-// func (self NoteModel) AddAttachments(attachments []AttachmentModel) (NoteModel, error) {
-//     db := common.GetDB()
-//     for _, attachment := range attachments {
-//         db.Create(&attachment)
-//     }
-//     return self
-// }
+
+func (self NoteModel) AddAttachments(attachments []string) error {
+    db := common.GetDB()
+    for _, image := range attachments {
+        obj := AttachmentModel{Image: &image, NoteID: self.ID}
+        if err := db.Save(&obj).Error; err != nil {
+            return err
+        }
+    }
+    return nil
+}
 
 // func (self NoteModel) RemoveAttachment(id uint) error {
-
 // }
+
+func GetAttachments(condition interface{}) ([]AttachmentModel, error) {
+    db := common.GetDB()
+    var attachments []AttachmentModel
+    err := db.Where(condition).Find(&attachments).Error
+    return attachments, err
+}
 
 func GetNotes(condition interface{}) ([]NoteModel, error) {
 	db := common.GetDB()
@@ -59,7 +70,7 @@ func GetNote(condition interface{}) (NoteModel, error) {
 
 func NoteSaveOne(data interface{}) error {
 	db := common.GetDB()
-	err := db.Save(data).Error
+    err := db.Save(data).Error
 	return err
 }
 
