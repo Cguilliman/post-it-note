@@ -3,7 +3,6 @@ package controllers
 import (
 	"errors"
 	"fmt"
-	"reflect"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -116,20 +115,4 @@ func NoteDelete(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"note": "Deleted success"})
-}
-
-func TestImageUploading(c *gin.Context) {
-	form, err := c.MultipartForm()
-	fmt.Println(form, err)
-	files, ok := form.File["image"]
-	fmt.Println(files, ok)
-
-	for _, file := range files {
-		fmt.Println(reflect.TypeOf(file))
-		err := c.SaveUploadedFile(file, "saved/"+file.Filename)
-		if err != nil {
-			fmt.Println(err)
-		}
-	}
-	c.JSON(http.StatusOK, gin.H{"status": "OK"})
 }

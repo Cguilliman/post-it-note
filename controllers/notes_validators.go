@@ -44,7 +44,7 @@ func (self *NoteCreationValidator) CreateFiles(c *gin.Context) error {
 	}
 	for _, file := range files {
 		// TODO: remove file uploading in utils
-		if err := c.SaveUploadedFile(file, "saved/"+file.Filename); err != nil {
+		if err := c.SaveUploadedFile(file, "uploads/"+file.Filename); err != nil {
 			return err
 		}
 		self.attachmentsFiles = append(self.attachmentsFiles, file.Filename)
