@@ -10,6 +10,10 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&UserModel{})
 	db.AutoMigrate(&NoteModel{})
 	db.AutoMigrate(&AttachmentModel{})
+	db.AutoMigrate(&RoomModel{})
+	db.AutoMigrate(&MessageModel{})
+	db.AutoMigrate(&ChatUserModel{})
+	fmt.Println(GetOrCreateChatUser(1))
 	// TestDataGeneration(db)
 }
 

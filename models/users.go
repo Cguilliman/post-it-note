@@ -11,11 +11,12 @@ import (
 
 type UserModel struct {
 	gorm.Model
-	Username     string      `gorm:"column:username"`
-	Email        string      `gorm:"column:email;unique_index"`
-	Avatar       *string     `gorm:"column:avatar"`
-	PasswordHash string      `gorm:"column:password;not null"`
-	Notes        []NoteModel `gorm:"foreignkey:OwnerID"`
+	Username     string        `gorm:"column:username"`
+	Email        string        `gorm:"column:email;unique_index"`
+	Avatar       *string       `gorm:"column:avatar"`
+	PasswordHash string        `gorm:"column:password;not null"`
+	Notes        []NoteModel   `gorm:"foreignkey:OwnerID"`
+	ChatUser     ChatUserModel `gorm:"foreignkey:UserID"`
 }
 
 // set password
